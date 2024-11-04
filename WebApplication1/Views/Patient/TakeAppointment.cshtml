@@ -1,0 +1,95 @@
+﻿@model List<WebApplication1.Models.Chamber>
+@{
+    ViewBag.Title = "Take TakeAppointment";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+    }, 4000)
+</script>
+
+@if (ViewBag.Invalid != null)
+{
+    <div id="hide" , class="alert alert-danger">
+        <strong>Error!</strong> @ViewBag.Invalid
+    </div>
+}
+<br />
+<a href="@Url.Action("Index", "Patient")" class="btn btn-outline-dark btn-sm">Back Home</a>
+<br />
+
+@using (Html.BeginForm("TakeAppointment", "Patient", FormMethod.Post))
+{
+    <div class="appointment-container">
+        <div class="card login-card col-md-3">
+            <h5 class="card-title text-center mb-2">Book an Appointment</h5>
+            <hr />
+
+            <div class="form-group mb-3">
+                <label for="chamberSelect" class="form-label">Select Chamber</label>
+                <select class="form-select" id="chamberSelect" name="ChamberId" required>
+                    <option value="" disabled selected>--Select a Chamber--</option>
+                    @foreach (var chamber in Model)
+                    {
+                        <option value="@chamber.ChamberId">@chamber.ChamberName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="appointmentTime" class="form-label">Appointment Time</label>
+                <select class="form-select" id="appointmentTime" name="Time" required>
+                    <option value="" disabled selected>--Select a TimeSlot--</option>
+                    <!-- Time slots will be dynamically populated here -->
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <input id="appoinmentBtn" type="submit" value="Confirm Appointment" class="btn btn-pri w-100" />
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // When the chamber is selected, fetch available time slots
+        $('#chamberSelect').change(function () {
+            var chamberId = $(this).val(); // Get the selected chamber's ID
+
+            //console.log("Selected Chamber ID: " + chamberId);
+
+            if (chamberId) {
+                // Perform AJAX call to fetch available time slots for the selected chamber
+                $.ajax({
+                    url: '@Url.Action("GetAvailableTimes", "Appointment")',  // Use the correct controller name
+                    type: "GET",
+                    data: { chamberId: chamberId },  // Send selected chamber ID
+                    success: function (response) {
+                        //console.log("AJAX Response: ", response);
+
+                        if (response.success) {
+                            var timeSelect = $('#appointmentTime');
+                            timeSelect.empty();  // Clear existing options
+                            timeSelect.append('<option value="" disabled selected>--Select a TimeSlot--</option>');
+
+                            // Populate new time slots (multiple slots for each chamber)
+                            $.each(response.data, function (index, timeSlot) {
+                                timeSelect.append('<option value="' + timeSlot.Time + '">' + timeSlot.Time + '</option>');
+                            });
+                        } else {
+                            alert('No available time slots');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching time slots:", error);  // Log error for debugging
+                        alert('Error retrieving time slots');
+                    }
+                });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,38 @@
+﻿@model List<WebApplication1.Models.Appointment>
+@{
+    ViewBag.Title = "All Appoinments";
+}
+
+<h2>Today's All Appointments</h2>
+<hr />
+<br />
+<a href="@Url.Action("Index", "Doctor")" class="btn btn-outline-dark btn-sm">Back Home</a>
+<br />
+<br />
+
+<div class="container text-center mb-5">
+    <table class="table table-hover mx-auto">
+        <tr>
+            <th>Patient Username</th>
+            <th>Phone Number</th>
+            <th>Appointment Date</th>
+            <th>Time Slot</th>
+            <th>Chamber Name</th>
+            <th>Checked In</th>
+            <th>Prescribed</th>
+        </tr>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.User.UserName</td>
+                <td>@items.User.Phone</td>
+                <td>@items.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                <td>@items.Time</td>
+                <td>@items.Chamber.ChamberName</td>
+                <td>@(items.CheckIn.HasValue ? (items.CheckIn.Value ? "Yes" : "No") : "Not yet Checked In")</td>
+                <td>@(items.Prescribed.HasValue ? (items.Prescribed.Value ? "Yes" : "No") : "Not yet Prescribed")</td>
+            </tr>
+        }
+    </table>
+</div>
+

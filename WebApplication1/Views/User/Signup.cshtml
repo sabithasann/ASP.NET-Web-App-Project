@@ -1,0 +1,63 @@
+﻿@model WebApplication1.Models.User
+@{
+    ViewBag.Title = "Signup";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+    }, 4000)
+</script>
+
+@if (ViewBag.Invalid != null)
+{
+    <div id="hide" , class="alert alert-danger">
+        <strong>@ViewBag.Invalid</strong>
+    </div>
+}
+
+@using (Html.BeginForm("Signup", "User", FormMethod.Post))
+{
+    <div class="signup-container">
+        <div class="card login-card col-md-3">
+            <h5 class="card-title text-center mb-2">User Registration</h5>
+            <hr />
+            <div class="form-group mb-3">
+                @Html.LabelFor(x => x.UserName, new { @class = "form-label" })
+                @Html.TextBoxFor(x => x.UserName, new { @class = "form-control", @placeholder = "Enter a unique username" })
+                @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(x => x.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Enter email address" })
+                @Html.ValidationMessageFor(x => x.Email, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(x => x.Phone, new { @class = "form-label" })
+                @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @placeholder = "Enter phone number" })
+                @Html.ValidationMessageFor(x => x.Phone, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(x => x.Password, new { @class = "form-label" })
+                @Html.EditorFor(x => x.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your password" } })
+                @Html.ValidationMessageFor(x => x.Password, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(x => x.RePassword, new { @class = "form-label" })
+                @Html.EditorFor(x => x.RePassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Re-type your password again" } })
+                @Html.ValidationMessageFor(x => x.RePassword, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                <input id="signupBtn" type="submit" value="Signup" class="btn btn-pri w-100" />
+            </div>
+        </div>
+    </div>
+}
+
+

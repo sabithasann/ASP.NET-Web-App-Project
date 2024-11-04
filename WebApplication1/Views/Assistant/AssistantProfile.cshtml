@@ -1,0 +1,87 @@
+﻿@model WebApplication1.Models.AssistantDetails
+@{
+    ViewBag.Title = "Assistant Profile";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+    }, 4000)
+</script>
+
+@if (TempData["Edit"] != null)
+{
+    <div id="hide" , class="alert alert-info">
+        <strong>Congratulations !! </strong> @TempData["Edit"]
+    </div>
+}
+
+<br />
+<a href="@Url.Action("Index", "Assistant")" class="btn btn-outline-dark btn-sm">Back Home</a>
+<br />
+
+<div class="text-center">
+    <!-- Profile Details -->
+    <h3>Assistant Details</h3>
+    <br />
+    <div class="text-start">
+        <h5>Main Information</h5>
+        <hr>
+        <p>
+            <i class="fas fa-user"></i>
+            <strong>User Name:</strong>
+            @Html.DisplayFor(m => m.User.UserName)
+        </p>
+        <p>
+            <i class="fas fa-envelope"></i>
+            <strong>E-mail:</strong>
+            @Html.DisplayFor(m => m.User.Email)
+        </p>
+        <p>
+            <i class="fas fa-phone"></i>
+            <strong>Phone Number:</strong>
+            @Html.DisplayFor(m => m.User.Phone)
+        </p>
+
+        <br />
+        <h5>Other Information</h5>
+        <hr>
+
+        <p>
+            <i class="fas fa-user"></i>
+            <strong>Full Name:</strong>
+            @Html.DisplayFor(m => m.FullName)
+        </p>
+        <p>
+            <i class="fas fa-calendar-alt"></i>
+            <strong>Date of Birth:</strong>
+            @Html.DisplayFor(m => m.DateOfBirth)
+        </p>
+        <p>
+            <i class="fas fa-venus-mars"></i>
+            <strong>Gender:</strong>
+            @Html.DisplayFor(m => m.Gender)
+        </p>
+        <p>
+            <i class="fas fa-map-marker-alt"></i>
+            <strong>Address:</strong>
+            @Html.DisplayFor(m => m.Address)
+        </p>
+        <p>
+            <i class="fas fa-tint"></i>
+            <strong>Blood Group:</strong>
+            @Html.DisplayFor(m => m.BloodGroup)
+        </p>
+        <p>
+            <i class="fas fa-phone"></i>
+            <strong>Emergency Contact:</strong>
+            @Html.DisplayFor(m => m.EmergencyContact)
+        </p>
+    </div>
+    <br />
+    <div class="text-start">
+        <a href="@Url.Action("UpdateProfile", "Assistant", new {Model.AssistantDetailsId, Model.DateOfBirth, Model.Gender, Model.Address, Model.BloodGroup, Model.EmergencyContact, Model.UserId, Model.FullName })" class="btn btn-outline-success btn-sm">Update Profile</a>
+    </div>
+</div>
+

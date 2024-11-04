@@ -1,0 +1,69 @@
+﻿@model List<WebApplication1.Models.Appointment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Today's Appointments</h2>
+<hr />
+
+<div class="c-search">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="myInput" placeholder="Search Patient" name="searchPatient">
+        <label for="myInput">Search Patient...</label>
+    </div>
+</div>
+<hr />
+
+<div class="container text-center mb-5">
+    <table class="table table-hover mx-auto">
+        <thead>
+            <tr>
+                <th>Patient Username</th>
+                <th>Phone Number</th>
+                <th>Appointment Date</th>
+                <th>Time Slot</th>
+                <th>Chamber Name</th>
+                <th>Checked In</th>
+                <th>Bill Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+            @foreach (var items in Model)
+            {
+                <tr>
+                    <td>@items.User.UserName</td>
+                    <td>@items.User.Phone</td>
+                    <td>@items.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                    <td>@items.Time</td>
+                    <td>@items.Chamber.ChamberName</td>
+                    <td>@(items.CheckIn.HasValue ? (items.CheckIn.Value ? "Yes" : "No") : "Not yet Checked In")</td>
+                    @using (Html.BeginForm("CheckIn", "Assistant", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        <td>
+                            <input type="number" name="BillAmount" placeholder="Enter Bill" class="form-control" required />
+                            <input type="hidden" name="AppointmentId" value="@items.AppointmentId" />
+                            <input type="hidden" name="ChamberId" value="@items.ChamberId" />
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success btn-sm">Check In</button>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase().trim();  // Get the input value and convert to lowercase
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);  // Toggle rows that match the search
+            });
+        });
+    });
+</script>

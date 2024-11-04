@@ -1,0 +1,30 @@
+﻿@model List<WebApplication1.Models.Medication>
+@{
+    ViewBag.Title = "Details Prescription";
+}
+
+<h2>Details Prescription</h2>
+<hr />
+<br />
+<a href="@Url.Action("History", "Patient")" class="btn btn-outline-dark btn-sm">Back Home</a>
+<br />
+<br />
+
+<div class="container text-center mb-5">
+    <table class="table table-hover mx-auto">
+        <tr>
+            <th>Medication Name</th>
+            <th>Dosage</th>
+            <th>Instruction</th>
+        </tr>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.Name</td>
+                <td>@items.Dosage</td>
+                <td>@items.Instructions</td>
+            </tr>
+        }
+    </table>
+</div>
+

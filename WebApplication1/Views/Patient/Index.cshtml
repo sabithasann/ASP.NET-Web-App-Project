@@ -1,0 +1,62 @@
+﻿@model WebApplication1.Models.Appointment
+@{
+    ViewBag.Title = "Patient Index";
+}
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+    }, 4000)
+</script>
+
+@if (TempData["Login"] != null)
+{
+    <div id="hide" , class="alert alert-success">
+        <strong>Welcome!</strong> @TempData["Login"]
+    </div>
+}
+@if (TempData["Appointment"] != null)
+{
+    <div id="hide" , class="alert alert-success">
+        <strong>Thanks!</strong> @TempData["Appointment"]
+    </div>
+}
+@if (TempData["CancelAppointment"] != null)
+{
+    <div id="hide" , class="alert alert-danger">
+        <strong>Warning!</strong> @TempData["Delete"]
+    </div>
+}
+@if (TempData["CheckIn"] != null)
+{
+    <div id="hide" , class="alert alert-danger">
+        <strong>Warning!</strong> @TempData["CheckIn"]
+    </div>
+}
+
+<div class="col-lg-4 mx-auto mt-5 mb-5">
+    <div class="card upcoming-appointment-card">
+        <div class="card-header text-white" style="background-color: rgb(90, 185, 193) !important;">
+            Upcoming Appointments
+        </div>
+        <div class="card-body">
+            @if (Model != null)
+            {
+                <p><strong>Next Appointment:</strong> @Model.AppointmentDate.ToString("yyyy-MM-dd")</p>
+                <p><strong>Time:</strong> @Model.Time</p>
+                <p><strong>Chamber:</strong> @Model.Chamber.ChamberName</p>
+                <p><strong>Address:</strong> @Model.Chamber.Address</p>
+                <p><strong>Phone Number:</strong> @Model.Chamber.Phone</p>
+                <p><strong>Checked In:</strong> @(Model.CheckIn.HasValue ? (Model.CheckIn.Value ? "Yes" : "No") : "Not yet Checked In")</p>
+                <p><strong>Prescribed:</strong> @(Model.Prescribed.HasValue ? (Model.Prescribed.Value ? "Yes" : "No") : "Not yet Prescribed")</p>
+                <a href="@Url.Action("CancelAppointment", "Patient", new {id = Model.AppointmentId})" class="btn btn-outline-danger btn-sm">Cancel</a>
+                <a href="@Url.Action("PreviousAppointments", "Patient")" class="btn btn-outline-info btn-sm m-lg-3">Previous Appointments</a>
+            }
+            else
+            {
+                <p><strong>Next Appointment:</strong> Not Available</p>
+                <a href="@Url.Action("PreviousAppointments", "Patient")" class="btn btn-outline-info btn-sm m-lg-3">Previous Appointments</a>
+            }
+        </div>
+    </div>
+</div>

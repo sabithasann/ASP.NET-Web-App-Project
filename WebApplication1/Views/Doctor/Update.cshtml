@@ -1,0 +1,42 @@
+﻿@model WebApplication1.Models.User
+@{
+    ViewBag.Title = "Update Assistant";
+}
+
+<br />
+<a href="@Url.Action("ViewAssistant", "Doctor")" class="btn btn-outline-dark btn-sm">Back</a>
+<br />
+
+@using (Html.BeginForm("UpdateNow", "Doctor", FormMethod.Post))
+{
+    <div class="edit-container">
+        <div class="card login-card col-md-3">
+            <h5 class="card-title text-center mb-2">Update Profile</h5>
+            <hr />
+            @Html.HiddenFor(u => u.UserId)
+            <div class="form-group mb-3">
+                @Html.LabelFor(u => u.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control required" })
+                @Html.ValidationMessageFor(u => u.Email, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(u => u.Phone, new { @class = "form-label" })
+                @Html.TextBoxFor(u => u.Phone, new { @class = "form-control required" })
+                @Html.ValidationMessageFor(u => u.Phone, "", new { @class = "err" })
+            </div>
+            @{
+                var chamberList = new WebApplication1.Context.ProjectDBContext().Chamber.ToList();
+            }
+            <div class="form-group mb-3">
+                @Html.LabelFor(u => u.ChamberId, new { @class = "form-label" })
+                @Html.DropDownListFor(u => u.ChamberId, new SelectList(chamberList, "ChamberId", "ChamberName"), "--Select Chamber--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(u => u.ChamberId, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                <input id="signupBtn" type="submit" value="Save" class="btn btn-pri w-100" />
+            </div>
+        </div>
+    </div>
+}

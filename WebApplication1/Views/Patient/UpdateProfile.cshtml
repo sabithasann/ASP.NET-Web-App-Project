@@ -1,0 +1,52 @@
+﻿@model WebApplication1.Models.PatientDetails
+@{
+    ViewBag.Title = "Update Profile";
+}
+
+<br />
+<a href="@Url.Action("PatientProfile", "Patient")" class="btn btn-outline-dark btn-sm">Back</a>
+<br />
+
+@using (Html.BeginForm("EditProfile", "Patient", FormMethod.Post))
+{
+    <div class="edit-container">
+        <div class="card login-card col-md-3">
+            <h5 class="card-title text-center mb-2">Update Profile</h5>
+            <hr />
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.FullName, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control required" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.DateOfBirth, new { @class = "form-label" })
+                @Html.EditorFor(m => m.DateOfBirth, new { htmlAttributes = new { @Value = Model.DateOfBirth.Value.ToString("yyyy-MM-dd"), @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "err" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.Gender, new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Male", "Female", "Other" }), "--Select Gender--", new { @class = "form-select required" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.Address, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control required" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.BloodGroup, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.BloodGroup, new { @class = "form-control required" })
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(m => m.EmergencyContact, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.EmergencyContact, new { @class = "form-control required" })
+            </div>
+
+            <div class="form-group mb-3">
+                <input id="signupBtn" type="submit" value="Save" class="btn btn-pri w-100" />
+            </div>
+        </div>
+    </div>
+}

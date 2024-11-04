@@ -1,0 +1,94 @@
+﻿@model WebApplication1.Models.Prescription
+
+@{
+    ViewBag.Title = "Create Prescription";
+}
+
+<h2>Create Prescription</h2>
+<hr />
+
+@using (Html.BeginForm("CreatePrescription", "Prescription", FormMethod.Post))
+{
+    <div class="form-horizontal">
+
+        @Html.HiddenFor(model => model.AppointmentId)
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.ChamberId)
+        @Html.HiddenFor(model => model.PrescriptionDate)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Diagnosis, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Diagnosis, new { @class = "form-control required", @placeholder = "Enter Diagnosis" })
+                @Html.ValidationMessageFor(model => model.Diagnosis, "", new { @class = "err" })
+
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            @Html.LabelFor(model => model.AdditionalNotes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.AdditionalNotes, new { @class = "form-control required", @placeholder = "Enter Additional Notes", rows = 4 })
+                @Html.ValidationMessageFor(model => model.AdditionalNotes, "", new { @class = "err" })
+            </div>
+        </div>
+        <br />
+        <h4>Medications</h4>
+        <hr />
+        <table class="table" id="medicationsTable">
+            <tr>
+                <th>Medication Name</th>
+                <th>Dosage</th>
+                <th>Instructions</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="MedicationName" class="form-control" placeholder="e.g., Paracetamol" required />
+                </td>
+                <td>
+                    <input type="text" name="Dosage" class="form-control" placeholder="e.g., 500mg" required />
+                </td>
+                <td>
+                    <input type="text" name="Instructions" class="form-control" placeholder="e.g., Take after meals" required />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm remove-medication">Remove</button>
+                </td>
+            </tr>
+        </table>
+        <button type="button" class="btn btn-secondary btn-sm" id="addMedication">Add Medication</button>
+        <br /><br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+<a href="@Url.Action("Index", "Doctor")" class="btn btn-outline-dark btn-sm mt-3">Back</a>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Add Medication Row
+            $('#addMedication').click(function () {
+                var row = `<tr>
+                    <td><input type="text" name="MedicationName" class="form-control" placeholder="e.g., Ibuprofen" required /></td>
+                    <td><input type="text" name="Dosage" class="form-control" placeholder="e.g., 200mg" required /></td>
+                    <td><input type="text" name="Instructions" class="form-control" placeholder="e.g., Before bedtime" required /></td>
+                    <td><button type="button" class="btn btn-danger btn-sm remove-medication">Remove</button></td>
+                </tr>`;
+                $('#medicationsTable').append(row);
+            });
+
+            // Remove Medication Row
+            $('#medicationsTable').on('click', '.remove-medication', function () {
+                $(this).closest('tr').remove();
+            });
+        });
+    </script>
+}
+
+

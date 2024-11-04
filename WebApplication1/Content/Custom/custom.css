@@ -1,0 +1,160 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+.err {
+    color: red;
+    font-size: small;
+}
+/*navbar*/
+.navbar {
+    padding: 0.5rem 6rem !important;
+    border-radius: 16px;
+    margin: 25px !important;
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+}
+
+.navbar-custom {
+    background-color: rgb(90, 185, 193);
+}
+
+.nav-link {
+    color: #fff;
+    margin-right: 20px;
+}
+/*carousel*/
+.carousel {
+    margin-top: 50px;
+}
+
+.c-item {
+    height: 380px;
+}
+
+.c-image {
+    height: 100%;
+}
+
+.carousel-item :where(.carousel-caption h3,.carousel-caption p) {
+    color: black;
+    font-weight: 500;
+}
+
+.carousel-caption {
+    width: 50%;
+    margin: auto;
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    border-radius: 16px;
+    background-color: #fff;
+    opacity: 0.8;
+}
+
+.carousel-indicators {
+    width: 15%;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 16px;
+    background-color: rgb(90, 185, 193);
+}
+
+/*doctor details*/
+.about-doctor {
+    margin-top: 65px;
+    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    margin-bottom: 70px;
+}
+.profile-header {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+.profile-content {
+    padding: 20px;
+}
+
+.profile-content h4 {
+    margin-top: 20px;
+    border-bottom: 2px solid rgb(90, 185, 193);
+    padding-bottom: 10px;
+    color: rgb(90, 185, 193);
+}
+
+.contact-info {
+    margin: auto;
+    text-align: justify;
+}
+
+/*cards*/
+.c-cards .card {
+    border-color: rgb(90, 185, 193) !important;
+}
+
+/*login*/
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.login-card {
+    padding: 25px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: hidden;
+}
+
+.btn-pri {
+    color: #fff;
+    background-color: rgb(90, 185, 193);
+}
+
+.btn-pri:hover{
+    background-color: rgb(130, 201, 206);
+}
+
+/*registration*/
+.signup-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+.patient-index-card {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: hidden;
+}
+
+/*appoinment*/
+.appointment-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin-top: 30px;
+    margin-bottom: 100px; 
+}
+
+.upcoming-appointment-card {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    border: hidden;   
+}
+
+/*editProfile*/
+.edit-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
