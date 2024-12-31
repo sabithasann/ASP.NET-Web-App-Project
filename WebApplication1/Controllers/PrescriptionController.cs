@@ -19,6 +19,11 @@ namespace WebApplication1.Controllers
         {
             this._dbContext = new ProjectDBContext();
         }
+        public JsonResult GetMedicationNames()
+        {
+            var medicationNames = _dbContext.Medicine.Select(m => m.Name).ToList();
+            return Json(medicationNames, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Prescribe(int? appointmentId)
         {
             if (Session["UserName"] == null && Session["UserId"] == null)

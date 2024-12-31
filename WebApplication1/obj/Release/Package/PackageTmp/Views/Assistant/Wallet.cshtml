@@ -1,0 +1,37 @@
+﻿@model List<WebApplication1.Models.Wallet>
+@{
+    ViewBag.Title = "Wallet";
+}
+
+<h2>Wallet</h2>
+<hr />
+
+<br />
+<a href="@Url.Action("Index", "Assistant")" class="btn btn-outline-dark btn-sm">Back Home</a>
+<br />
+
+<br />
+<p>Total Bill Amount for Today (@DateTime.Today.ToString("yyyy-MM-dd")): &nbsp; <strong> @ViewBag.TotalBillAmountToday </strong></p>
+<br />
+
+<div class="container text-center mb-5">
+    <table class="table table-hover mx-auto" style="width: 80%">
+        <tr>
+            <th>Appointment ID</th>
+            <th>Billing Date</th>
+            <th>Bill Amount</th>
+            <th>Billed By</th>
+            <th>Chamber</th>
+        </tr>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.AppointmentId</td>
+                <td>@items.BillingDate.ToString("yyyy-MM-dd")</td>
+                <td>@items.BillAmount</td>
+                <td>@items.User.UserName</td>
+                <td>@items.Chamber.ChamberName</td>
+            </tr>
+        }
+    </table>
+</div>

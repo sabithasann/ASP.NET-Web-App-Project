@@ -1,0 +1,29 @@
+﻿@if (Session["UserName"] != null && Session["UserId"] != null)
+{
+    <ul class="nav navbar-nav justify-content-end">
+        @if (Session["Role"].ToString().Equals("patient"))
+        {
+            <li>@Html.ActionLink("Welcome, " + Session["UserName"].ToString(), "PatientProfile", "Patient", new { area = "" }, new { @class = "nav-link" })</li>
+        }
+        else if (Session["Role"].ToString().Equals("assistant"))
+        {
+            <li>@Html.ActionLink("Welcome, " + Session["UserName"].ToString(), "AssistantProfile", "Assistant", new { area = "" }, new { @class = "nav-link" })</li>
+        }
+        else if (Session["Role"].ToString().Equals("doctor"))
+        {
+            <li>@Html.ActionLink("Welcome, " + Session["UserName"].ToString(), "Index", "Doctor", new { area = "" }, new { @class = "nav-link" })</li>
+
+        }
+        else 
+        { 
+        }
+        <li>@Html.ActionLink("Logout", "Logout", "User", new { area = "" }, new { @class = "nav-link" })</li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav justify-content-end">
+        <li>@Html.ActionLink("Signup", "Signup", "User", new { area = "" }, new { @class = "nav-link" })</li>
+        <li>@Html.ActionLink("Login", "Login", "User", new { area = "" }, new { @class = "nav-link" })</li>
+    </ul>
+}

@@ -32,6 +32,8 @@ namespace WebApplication1.Context
         public virtual DbSet<Wallet> Wallet { get; set; }
         public virtual DbSet<Prescription> Prescription { get; set; }
         public virtual DbSet<Medication> Medication { get; set; }
+        public virtual DbSet<Medicine> Medicine { get; set; } 
+
     }
 
     //public class MyEntity

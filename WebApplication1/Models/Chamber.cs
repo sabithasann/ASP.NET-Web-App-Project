@@ -9,6 +9,7 @@ namespace WebApplication1.Models
     public class Chamber
     {
         [Key]
+        [Display(Name = "Chamber Name")]
         public int ChamberId { get; set; }
 
         [Required(ErrorMessage = "Please provide the chamber name.")]

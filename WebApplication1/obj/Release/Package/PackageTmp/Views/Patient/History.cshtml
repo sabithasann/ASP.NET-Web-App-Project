@@ -1,0 +1,35 @@
+﻿@model List<WebApplication1.Models.Prescription>
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>Prescription History</h2>
+<hr />
+<br />
+<a href="@Url.Action("Index", "Patient")" class="btn btn-outline-dark btn-sm">Back Home</a>
+<br />
+<br />
+
+<div class="container text-center mb-5">
+    <table class="table table-hover mx-auto">
+        <tr>
+            <th>Prescription Date</th>
+            <th>Diagnosis</th>
+            <th>Additional Notes</th>
+            <th>Chamber Name</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.PrescriptionDate.ToString("yyyy-MM-dd")</td>
+                <td>@items.Diagnosis</td>
+                <td>@items.AdditionalNotes</td>
+                <td>@items.Chamber.ChamberName</td>
+                <td>
+                    <a href="@Url.Action("DetailsPrescription", "Patient", new {prescriptionId = items.PrescriptionId})" class="btn btn-success btn-sm">Details</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

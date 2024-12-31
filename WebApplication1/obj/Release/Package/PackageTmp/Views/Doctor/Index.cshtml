@@ -1,0 +1,63 @@
+﻿@model List<WebApplication1.Models.Appointment>
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+    }, 4000)
+</script>
+
+@if (TempData["Error"] != null)
+{
+    <div id="hide" , class="alert alert-warning">
+        <strong>Error!</strong> @TempData["Error"]
+    </div>
+}
+@if (TempData["Success"] != null)
+{
+    <div id="hide" , class="alert alert-success">
+        <strong>Congratulations!</strong> @TempData["Success"]
+    </div>
+}
+
+<h2>Next Appointments</h2>
+<hr />
+<br />
+<a href="@Url.Action("AllAppoinments", "Doctor")" class="btn btn-success btn-sm">All Appoinments</a>
+<br />
+<br />
+
+<div class="container text-center mb-5">
+    <table class="table table-hover mx-auto">
+        <tr>
+            <th>Patient Username</th>
+            <th>Phone Number</th>
+            <th>Appointment Date</th>
+            <th>Time Slot</th>
+            <th>Chamber Name</th>
+            <th>Checked In</th>
+            <th>Prescribed</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.User.UserName</td>
+                <td>@items.User.Phone</td>
+                <td>@items.AppointmentDate.ToString("yyyy-MM-dd")</td>
+                <td>@items.Time</td>
+                <td>@items.Chamber.ChamberName</td>
+                <td>@(items.CheckIn.HasValue ? (items.CheckIn.Value ? "Yes" : "No") : "Not yet Checked In")</td>
+                <td>@(items.Prescribed.HasValue ? (items.Prescribed.Value ? "Yes" : "No") : "Not yet Prescribed")</td>
+                <td>
+                    <a href="@Url.Action("History", "Doctor", new {patientId = items.User.UserId})" class="btn btn-success btn-sm">History</a>
+                    <a href="@Url.Action("CreatePrescription", "Appointment", new {appointmentId = items.AppointmentId})" class="btn btn-secondary btn-sm">Prescribe</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

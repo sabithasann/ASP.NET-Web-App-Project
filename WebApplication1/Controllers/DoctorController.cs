@@ -46,6 +46,24 @@ namespace WebApplication1.Controllers
             return View(appointmentList);
         }
 
+        public ActionResult DetailsAppointment(int? appointmentId)
+        {
+            if (Session["UserName"] == null && Session["UserId"] == null)
+                return RedirectToAction("Login", "User");
+
+            if (appointmentId == null)
+                return HttpNotFound();
+
+            var prescription = _dbContext.Prescription
+                .Include(a => a.Appointment)
+                .Include(a => a.User)
+                .Include(a => a.Chamber)
+                .Where(a => a.AppointmentId == appointmentId)
+                .FirstOrDefault();
+
+            return View(prescription);
+        }
+
         public ActionResult History(int? patientId)
         {
             if (Session["UserName"] == null && Session["UserId"] == null)
@@ -82,7 +100,7 @@ namespace WebApplication1.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(@"http://localhost:61575/api/assistant");
+                client.BaseAddress = new Uri(@"http://pioneerhealthcare.somee.com/api/assistant");
                 var response = client.GetAsync("assistant");
                 response.Wait();
 
@@ -120,11 +138,11 @@ namespace WebApplication1.Controllers
             {
                 ViewBag.Invalid = "Username already existed! Please write a unique Username.";
                 ModelState.Clear();
-                return View();
+                return View("AddNewAssistant");
             }
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(@"http://localhost:61575/api/signupassistant");
+                client.BaseAddress = new Uri(@"http://pioneerhealthcare.somee.com/api/signupassistant");
                 var response = client.PostAsJsonAsync("signupassistant", u);
                 response.Wait();
 
@@ -192,7 +210,7 @@ namespace WebApplication1.Controllers
 
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(@"http://localhost:61575/api/editassistant");
+                client.BaseAddress = new Uri(@"http://pioneerhealthcare.somee.com/api/editassistant");
                 var response = client.PutAsJsonAsync("editassistant/" + u.UserId.ToString(), u);
                 response.Wait();
 
@@ -211,7 +229,7 @@ namespace WebApplication1.Controllers
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri(@"http://localhost:61575/api/deleteassistant");
+                client.BaseAddress = new Uri(@"http://pioneerhealthcare.somee.com/api/deleteassistant");
                 var response = client.DeleteAsync("deleteassistant/" + id.ToString());
                 response.Wait();
 

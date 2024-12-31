@@ -1,0 +1,69 @@
+﻿@model List<WebApplication1.Models.Chamber>
+@{
+    ViewBag.Title = "Home Index";
+}
+
+<main>
+    <!-- carousel -->
+    <section>
+        <div id="carousel" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active c-item">
+                    <img src="../Images/undraw_medicine_b-1-ol.svg" class="d-block w-100 c-image" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Medical Professionals</h3>
+                        <p>"Empowering Medical Excellence through Knowledge, Compassion, and Innovation."</p>
+                    </div>
+                </div>
+                <div class="carousel-item c-item">
+                    <img src="../Images/undraw_doctor_kw-5-l.svg" class="d-block w-100 c-image" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Doctor's Consultaion</h3>
+                        <p>"Nurturing Health through Expert Guidance: Your Path to Personalized Care."</p>
+                    </div>
+                </div>
+                <div class="carousel-item c-item">
+                    <img src="../Images/undraw_scientist_ft0o.svg" class="d-block w-100 c-image" alt="...">
+                    <div class="carousel-caption">
+                        <h3>Diagnosis & Treatment</h3>
+                        <p>"Precision Diagnosis, Compassionate Treatment: Paving the Way to Health and Healing."</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <img src="../Images/icons8-back-26.png" alt="">
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <img src="../Images/icons8-forward-26.png" alt="">
+            </button>
+        </div>
+    </section>
+    <div class="d-flex justify-content-center align-content-center mt-5">
+        <h2>Chamber Location</h2>
+    </div>
+    <!-- cards -->
+    <section class="c-cards w-75 mx-auto mt-3 mb-5">
+        <div class="row">
+            @foreach (var chamber in Model)
+            {
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header"><h4>@chamber.ChamberName Chamber</h4></div>
+                        <div class="card-body">
+                            <ul>
+                                <li><strong>Phone: </strong>@chamber.Phone</li>
+                                <li><strong>Email: </strong> <a href="mailto:@chamber.Email">@chamber.Email</a></li>
+                                <li><strong>Office Address: </strong>@chamber.Address</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</main>

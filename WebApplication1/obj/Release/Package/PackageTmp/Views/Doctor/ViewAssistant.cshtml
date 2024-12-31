@@ -1,0 +1,73 @@
+﻿@model List<WebApplication1.Models.User>
+@{
+    ViewBag.Title = "ViewAssistant";
+}
+
+<script>
+    setTimeout(() => {
+        const box = document.getElementById('hide');
+        box.style.display = 'none';
+    }, 4000)
+</script>
+
+@if (TempData["Edit"] != null)
+{
+    <div id="hide" , class="alert alert-success">
+        <strong>Congratulations !! </strong> @TempData["Edit"]
+    </div>
+}
+@if (TempData["Delete"] != null)
+{
+    <div id="hide" , class="alert alert-danger">
+        <strong>Warning !! </strong> @TempData["Delete"]
+    </div>
+}
+@if (TempData["Signup"] != null)
+{
+    <div id="hide" , class="alert alert-success">
+        <strong>Congratulations!</strong> @TempData["Signup"]
+    </div>
+}
+
+<h2>View Assistant List</h2>
+<hr />
+<br />
+<a href="@Url.Action("AddNewAssistant", "Doctor")" class="btn btn-success btn-sm">Add New Assistant</a>
+<br />
+<br />
+
+<div class="container text-center mb-5">
+    <table class="table table-hover mx-auto">
+        <tr>
+            <th>Assistant UserID</th>
+            <th>Assistant Username</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Password</th>
+            <th>Chamber Name</th>
+            <th>Action</th>
+            <th>Details</th>
+        </tr>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.UserId</td>
+                <td>@items.UserName</td>
+                <td>@items.Email</td>
+                <td>@items.Phone</td>
+                <td>@items.Password</td>
+                <td>@items.Chamber.ChamberName</td>
+                <td>
+                    <a href="@Url.Action("Update", "Doctor", new { items.UserId, items.UserName, items.Email, items.Phone, items.ChamberId})" class="btn btn-success btn-sm">Edit</a>
+                    <a href="@Url.Action("Delete", "Doctor", new { id = items.UserId})" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+                @using (Html.BeginForm("AssistantProfile", "Doctor", FormMethod.Post, new { @class = "form-inline" }))
+                {
+                    <td>
+                        <a href="@Url.Action("AssistantProfile", "Doctor", new {id = items.UserId})" class="btn btn-outline-success btn-sm">Details</a>
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
